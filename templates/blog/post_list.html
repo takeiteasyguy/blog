@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    {% if request.GET.deleted == 'true' %}
+        <p>Post has been deleted</p>
+    {% endif %}
+
+    {% for post in object_list %}
+        <p>{{ post.datetime }}</p>
+        <p>{{ post.publisher }}</p>
+        <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+        <p>{{ post.content }}</p>
+    {% empty %}
+    <p>No Posts</p>
+    {% endfor %}
+
+    {% if request.user.is_authenticated %}
+        <a class="btn btn-default" href="{% url 'post_new' %}"><span class="glyphicon glyphicon-pencil"></span>New</a>
+    {% endif %}
+{% endblock %}
